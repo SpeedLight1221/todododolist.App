@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todododolist.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <HorizontalStackLayout Background="purple">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Margin="10" WidthRequest="100" Text="Název" Grid.Column="0"></Label>
+                    <Entry TextColor="White" Margin="10" x:Name="nazevEntry" Grid.Column="1" WidthRequest="200"  Background="black"></Entry>
+
+                    <Label  Margin="10" WidthRequest="100" Text="Termín" Grid.Column="0" Grid.Row="1"></Label>
+                    <DatePicker TextColor="White" Margin="10" x:Name="terminEntry" Grid.Column="1" WidthRequest="200" Grid.Row="1"  Background="black"></DatePicker>
+
+                    <Label  Margin="10" WidthRequest="100" Text="Pruběh" Grid.Column="0" Grid.Row="2"></Label>
+                    <Picker TextColor="White"  SelectedIndex="1" Margin="10" x:Name="prubehEntry" Grid.Column="1" Grid.Row="2" WidthRequest="200" Background="black">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Baboon</x:String>
+                                <x:String>Capuchin Monkey</x:String>
+                                <x:String>Blue Monkey</x:String>
+                                <x:String>Squirrel Monkey</x:String>
+                                <x:String>Golden Lion Tamarin</x:String>
+                                <x:String>Howler Monkey</x:String>
+                                <x:String>Japanese Macaque</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+
+                </Grid>
+                <VerticalStackLayout  Background=" blue">
+                    
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            
+            
+            
+            
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
