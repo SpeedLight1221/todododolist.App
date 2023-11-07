@@ -4,58 +4,83 @@
              x:Class="todododolist.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <Grid RowDefinitions="*,3*">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+        
 
-            <HorizontalStackLayout Background="purple">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
+            <Grid Grid.Row="1"  Background="purple" Padding="10" Grid.Column="0" RowDefinitions="*,*,*,*" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+              
 
-                    <Label Margin="10" WidthRequest="100" Text="Název" Grid.Column="0"></Label>
-                    <Entry TextColor="White" Margin="10" x:Name="nazevEntry" Grid.Column="1" WidthRequest="200"  Background="black"></Entry>
+                <Label x:Name="nazevLabel" WidthRequest="100" Text="Název" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                <Entry  MaximumHeightRequest="{Binding Source={Reference nazevLabel}, Path= HeightRequest}" x:Name="nazevEntry" Grid.Column="1" WidthRequest="200"  Background="black"></Entry>
 
-                    <Label  Margin="10" WidthRequest="100" Text="Termín" Grid.Column="0" Grid.Row="1"></Label>
-                    <DatePicker TextColor="White" Margin="10" x:Name="terminEntry" Grid.Column="1" WidthRequest="200" Grid.Row="1"  Background="black"></DatePicker>
+                <Label WidthRequest="100" Text="Termín" Grid.Column="0" Grid.Row="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                <DatePicker x:Name="terminEntry" Grid.Column="1" WidthRequest="200" Grid.Row="1"  Background="black"></DatePicker>
 
-                    <Label  Margin="10" WidthRequest="100" Text="Pruběh" Grid.Column="0" Grid.Row="2"></Label>
-                    <Picker TextColor="White"  SelectedIndex="1" Margin="10" x:Name="prubehEntry" Grid.Column="1" Grid.Row="2" WidthRequest="200" Background="black">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Baboon</x:String>
-                                <x:String>Capuchin Monkey</x:String>
-                                <x:String>Blue Monkey</x:String>
-                                <x:String>Squirrel Monkey</x:String>
-                                <x:String>Golden Lion Tamarin</x:String>
-                                <x:String>Howler Monkey</x:String>
-                                <x:String>Japanese Macaque</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                <Label WidthRequest="100"  Text="Pruběh" Grid.Column="0" Grid.Row="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                <Picker VerticalOptions="Center" SelectedIndex="2" x:Name="prubehEntry" Grid.Column="1" Grid.Row="2" WidthRequest="200" Background="black">
+                    <Picker.ItemsSource>
+                        <x:Array  Type="{x:Type x:String}">
+                            <x:String>Zadáno</x:String>
+                            <x:String>Rozpracováno</x:String>
+                            <x:String>Hotovo</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
 
-                </Grid>
-                <VerticalStackLayout  Background=" blue">
+                <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Grid.ColumnSpan="2">
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                </HorizontalStackLayout>
+
+            </Grid>
+            
+                <Grid Background="blue" Grid.Row="0"  Grid.Column="1" RowDefinitions="2*,*,*,*,*" ColumnDefinitions="30,*,30,*">
+                    <Label  Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Průběh:</Label>
+                    <CheckBox  Grid.Column="0" Grid.Row="1"></CheckBox>
+                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="1">Zadáno</Label>
+                    <CheckBox  Grid.Column="0" Grid.Row="2"></CheckBox>
+                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="2">Rozpracováno</Label>
+                    <CheckBox  Grid.Column="0" Grid.Row="3"></CheckBox>
+                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="3">Hotovo</Label>
                     
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
+                    
+                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Termín:</Label>
+                    <Label Grid.RowSpan="2" Grid.Row="1"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Od:</Label>
+                    <DatePicker Grid.RowSpan="2" Grid.Row="1" Grid.Column="3"> </DatePicker>
+                    <Label Grid.RowSpan="2" Grid.Row="2"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Do:</Label>
+                <DatePicker Grid.RowSpan="2" Grid.Row="2" Grid.Column="3"></DatePicker>
+            </Grid>
+                
             
-            
-            
-            
+            <ListView x:Name="seznam" Grid.Column="1" Grid.Row="1" Background="red">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout>
 
+                                <Label Text="{Binding nazev}"></Label>
+                                <Label Text="prubeh:"></Label>
+                                <Label Text="{Binding prubeh}"></Label>
+                                <Label Text="Do"></Label>
+                                <Label Text="{Binding termin}"></Label>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
 
-        </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>
