@@ -1,30 +1,32 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 
 namespace todododolist;
 
 public partial class MainPage : ContentPage
 {
 	int count = 0;
-
-	public MainPage()
+	public ObservableCollection<Ukol> ukoly { get; set; }
+    public MainPage()
 	{
 		InitializeComponent();
-		List<ukol> ukoly = new List<ukol>();
-		ukol test = new ukol("test", new DateTime(2023, 11, 8), "hotovo");
+        ukoly = new ObservableCollection<Ukol>();
+        Ukol test = new Ukol("test", new DateTime(2023, 11, 8), "hotovo");
 		ukoly.Add(test);
-		seznam.ItemsSource = ukoly;
+		BindingContext = this;
+	
 	}
 
 	
 }
 
-public class ukol
+public class Ukol
 {
-	public string nazev;
-	public DateTime termin;
-	public string status;
+	public string nazev { private set; get; }
+	public DateTime termin { private set; get; }
+    public string status { private set; get; }
 
-	public ukol(string n, DateTime d, string s)
+    public Ukol(string n, DateTime d, string s)
 	{
 		nazev = n;
 		termin = d;

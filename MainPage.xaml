@@ -63,18 +63,44 @@
             </Grid>
                 
             
-            <ListView x:Name="seznam" Grid.Column="1" Grid.Row="1" Background="red">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <HorizontalStackLayout>
+            <ListView x:Name="seznam" 
+                      Grid.Column="1" Grid.Row="1" 
+                     
+                      ItemsSource="{Binding ukoly}">
+                <ListView.Header>
+                    <Grid MaximumHeightRequest="50" BackgroundColor="Black">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding nazev}"></Label>
-                                <Label Text="prubeh:"></Label>
-                                <Label Text="{Binding prubeh}"></Label>
-                                <Label Text="Do"></Label>
-                                <Label Text="{Binding termin}"></Label>
-                            </HorizontalStackLayout>
+                        <Label FontSize="Medium" Text="Název:" Grid.Column="0"></Label>
+                        <Label FontSize="Medium" Text="Termín:" Grid.Column="1"></Label>
+                        <Label FontSize="Medium" Text="Status" Grid.Column="2"></Label>
+                    </Grid>
+                </ListView.Header>
+                
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <ViewCell>
+                            <Grid MaximumHeightRequest="25" BackgroundColor="#800000FF" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Opacity="1" FontSize="Small" Text="{Binding nazev}" Grid.Column="0"></Label>
+
+                                <Label Opacity="1" FontSize="Small" Text="{Binding termin}" Grid.Column="1"></Label>
+
+                                <Label Opacity="1" FontSize="Small" Text="{Binding status}" Grid.Column="2"></Label>
+                            </Grid>
+
+                           
+                        
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
