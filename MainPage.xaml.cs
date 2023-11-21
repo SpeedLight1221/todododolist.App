@@ -6,18 +6,32 @@ namespace todododolist;
 public partial class MainPage : ContentPage
 {
 	int count = 0;
-	public ObservableCollection<Ukol> ukoly { get; set; }
+	public ObservableCollection<Ukol> ukoly { get; set; } = new ObservableCollection<Ukol>
+	{
+		new Ukol("Test",new DateTime(),"Zadáno")
+	};
     public MainPage()
 	{
 		InitializeComponent();
-        ukoly = new ObservableCollection<Ukol>();
-        Ukol test = new Ukol("test", new DateTime(2023, 11, 8), "hotovo");
-		ukoly.Add(test);
-		BindingContext = this;
+        BindingContext = this;
+    
+		
 	
 	}
 
+    private void AddTask_Clicked(object sender, EventArgs e)
+    {
+		if(nazevEntry.Text is null||prubehEntry.SelectedItem is null) {
 	
+			return;
+		}
+
+		Ukol u = new Ukol(nazevEntry.Text,terminEntry.Date,prubehEntry.SelectedItem.ToString());
+		ukoly.Add(u);
+
+		nazevEntry.Text = "";
+
+    }
 }
 
 public class Ukol
@@ -31,5 +45,8 @@ public class Ukol
 		nazev = n;
 		termin = d;
 		status = s;
+
+		
 	}
 }
+

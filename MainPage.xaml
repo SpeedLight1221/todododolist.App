@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="todododolist.MainPage">
 
+
+
     <ScrollView>
         <Grid RowDefinitions="*,3*">
             <Grid.ColumnDefinitions>
@@ -38,7 +40,7 @@
 
 
                 <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Grid.ColumnSpan="2">
-                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Přidat" Clicked="AddTask_Clicked"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
                 </HorizontalStackLayout>
@@ -65,7 +67,7 @@
             
             <ListView x:Name="seznam" 
                       Grid.Column="1" Grid.Row="1" 
-                     
+                       
                       ItemsSource="{Binding ukoly}">
                 <ListView.Header>
                     <Grid MaximumHeightRequest="50" BackgroundColor="Black">
