@@ -8,10 +8,10 @@ public partial class MainPage : ContentPage
 	int count = 0;
 	public ObservableCollection<Ukol> ukoly { get; set; } = new ObservableCollection<Ukol>
 	{
-		new Ukol("Test",new DateTime(),"Zadáno")
+		new Ukol("Test",new DateTime(),Prubeh.Rozpracováno)
 	};
     public MainPage()
-	{
+	{   
 		InitializeComponent();
         BindingContext = this;
     
@@ -21,12 +21,12 @@ public partial class MainPage : ContentPage
 
     private void AddTask_Clicked(object sender, EventArgs e)
     {
-		if(nazevEntry.Text is null||prubehEntry.SelectedItem is null) {
+		if(nazevEntry.Text == "" ||prubehEntry.SelectedItem is null) {
 	
 			return;
 		}
 
-		Ukol u = new Ukol(nazevEntry.Text,terminEntry.Date,prubehEntry.SelectedItem.ToString());
+		Ukol u = new Ukol(nazevEntry.Text,terminEntry.Date,(Prubeh)Enum.Parse(typeof(Prubeh),prubehEntry.SelectedItem.ToString()));
 		ukoly.Add(u);
 
 		nazevEntry.Text = "";
@@ -36,11 +36,16 @@ public partial class MainPage : ContentPage
 
 public class Ukol
 {
-	public string nazev { private set; get; }
-	public DateTime termin { private set; get; }
-    public string status { private set; get; }
+	string nazev;
+    public string Nazev { get => nazev; }
 
-    public Ukol(string n, DateTime d, string s)
+	DateTime termin;
+    public DateTime Termin { get=>termin; }
+
+	Prubeh status;
+	public Prubeh Status { get => status; }
+
+    public Ukol(string n, DateTime d, Prubeh s)
 	{
 		nazev = n;
 		termin = d;
@@ -48,5 +53,12 @@ public class Ukol
 
 		
 	}
+}
+
+public enum Prubeh
+{
+	Zadáno,
+	Rozpracováno,
+	Hotovo
 }
 

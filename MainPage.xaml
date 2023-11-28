@@ -67,14 +67,14 @@
             
             <ListView x:Name="seznam" 
                       Grid.Column="1" Grid.Row="1" 
-                       
+                      
                       ItemsSource="{Binding ukoly}">
                 <ListView.Header>
-                    <Grid MaximumHeightRequest="50" BackgroundColor="Black">
+                    <Grid MaximumHeightRequest="50" Background="Black">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="3*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <Label FontSize="Medium" Text="Název:" Grid.Column="0"></Label>
@@ -87,18 +87,18 @@
                 <ListView.ItemTemplate>
                     <DataTemplate >
                         <ViewCell>
-                            <Grid MaximumHeightRequest="25" BackgroundColor="#800000FF" >
+                            <Grid MaximumHeightRequest="35"  >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Opacity="1" FontSize="Small" Text="{Binding nazev}" Grid.Column="0"></Label>
+                                <Label Opacity="1" FontSize="Small" Text="{Binding Nazev}" Grid.Column="0"></Label>
 
-                                <Label Opacity="1" FontSize="Small" Text="{Binding termin}" Grid.Column="1"></Label>
+                                <Label Opacity="1" FontSize="Small" Text="{Binding Termin}" Grid.Column="1"></Label>
 
-                                <Label Opacity="1" FontSize="Small" Text="{Binding status}" Grid.Column="2"></Label>
+                                <Label Opacity="1" FontSize="Small" Text="{Binding Status}" Grid.Column="2"></Label>
                             </Grid>
 
                            
