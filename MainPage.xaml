@@ -11,21 +11,21 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-        
+
+
 
             <Grid Grid.Row="1"  Background="purple" Padding="10" Grid.Column="0" RowDefinitions="*,*,*,*" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-              
+
 
                 <Label x:Name="nazevLabel" WidthRequest="100" Text="Název" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
                 <Entry  MaximumHeightRequest="{Binding Source={Reference nazevLabel}, Path= HeightRequest}" x:Name="nazevEntry" Grid.Column="1" WidthRequest="200"  Background="black"></Entry>
 
                 <Label WidthRequest="100" Text="Termín" Grid.Column="0" Grid.Row="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
-                <DatePicker x:Name="terminEntry" Grid.Column="1" WidthRequest="200" Grid.Row="1"  Background="black"></DatePicker>
+                <DatePicker Format="dd/MM/yyyy" x:Name="terminEntry" Grid.Column="1" WidthRequest="200" Grid.Row="1"  Background="black"></DatePicker>
 
                 <Label WidthRequest="100"  Text="Pruběh" Grid.Column="0" Grid.Row="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
                 <Picker VerticalOptions="Center" SelectedIndex="2" x:Name="prubehEntry" Grid.Column="1" Grid.Row="2" WidthRequest="200" Background="black">
@@ -41,33 +41,33 @@
 
                 <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Grid.ColumnSpan="2">
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Přidat" Clicked="AddTask_Clicked"></Button>
-                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Změnit" Clicked="UpdateButton_Clicked"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
                 </HorizontalStackLayout>
 
             </Grid>
-            
-                <Grid Background="blue" Grid.Row="0"  Grid.Column="1" RowDefinitions="2*,*,*,*,*" ColumnDefinitions="30,*,30,*">
-                    <Label  Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Průběh:</Label>
-                    <CheckBox  Grid.Column="0" Grid.Row="1"></CheckBox>
-                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="1">Zadáno</Label>
-                    <CheckBox  Grid.Column="0" Grid.Row="2"></CheckBox>
-                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="2">Rozpracováno</Label>
-                    <CheckBox  Grid.Column="0" Grid.Row="3"></CheckBox>
-                    <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="3">Hotovo</Label>
-                    
-                    
-                    <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Termín:</Label>
-                    <Label Grid.RowSpan="2" Grid.Row="1"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Od:</Label>
-                    <DatePicker Grid.RowSpan="2" Grid.Row="1" Grid.Column="3"> </DatePicker>
-                    <Label Grid.RowSpan="2" Grid.Row="2"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">Do:</Label>
+
+            <Grid Background="blue" Grid.Row="0"  Grid.Column="1" RowDefinitions="2*,*,*,*,*" ColumnDefinitions="30,*,30,*">
+                <Label  Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Průběh:</Label>
+                <CheckBox CheckedChanged="CB_CheckedChanged"   x:Name="CB_zadano" Grid.Column="0" Grid.Row="1"></CheckBox>
+                <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="1" Text="Zadáno"></Label>
+                <CheckBox CheckedChanged="CB_CheckedChanged"    x:Name="CB_rozpracovano" Grid.Column="0" Grid.Row="2"></CheckBox>
+                <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="2" Text="Rozpracováno"></Label>
+                <CheckBox CheckedChanged="CB_CheckedChanged"    x:Name="CB_Hotovo" Grid.Column="0" Grid.Row="3"></CheckBox>
+                <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="3" Text="Hotovo"></Label>
+
+
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Termín:</Label>
+                <Label Grid.RowSpan="2" Grid.Row="1"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Od:"></Label>
+                <DatePicker Grid.RowSpan="2" Grid.Row="1" Grid.Column="3"></DatePicker>
+                <Label Grid.RowSpan="2" Grid.Row="2"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Do:"></Label>
                 <DatePicker Grid.RowSpan="2" Grid.Row="2" Grid.Column="3"></DatePicker>
             </Grid>
-                
-            
+
+
             <ListView x:Name="seznam" 
                       Grid.Column="1" Grid.Row="1" 
-                      
+                      ItemSelected="seznam_ItemSelected"
                       ItemsSource="{Binding ukoly}">
                 <ListView.Header>
                     <Grid MaximumHeightRequest="50" Background="Black">
@@ -82,8 +82,8 @@
                         <Label FontSize="Medium" Text="Status" Grid.Column="2"></Label>
                     </Grid>
                 </ListView.Header>
-                
-                
+
+
                 <ListView.ItemTemplate>
                     <DataTemplate >
                         <ViewCell>
@@ -101,8 +101,8 @@
                                 <Label Opacity="1" FontSize="Small" Text="{Binding Status}" Grid.Column="2"></Label>
                             </Grid>
 
-                           
-                        
+
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
