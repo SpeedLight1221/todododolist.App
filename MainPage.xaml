@@ -42,7 +42,7 @@
                 <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center" Grid.ColumnSpan="2">
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Přidat" Clicked="AddTask_Clicked"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Změnit" Clicked="UpdateButton_Clicked"></Button>
-                    <Button Margin="10" WidthRequest="100" HeightRequest="50"></Button>
+                    <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Odebrat" Clicked="RemoveButton_Clicked"></Button>
                 </HorizontalStackLayout>
 
             </Grid>

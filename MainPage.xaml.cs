@@ -61,6 +61,15 @@ public partial class MainPage : ContentPage
 		selected.Status = (Prubeh)Enum.Parse(typeof(Prubeh), prubehEntry.SelectedItem.ToString());
 		selected.Termin = terminEntry.Date;
     }
+
+    private void RemoveButton_Clicked(object sender, EventArgs e)
+    {
+        if (selected == null) { return; }
+		ukoly.Remove(selected);
+		selected = null;
+		nazevEntry.Text = "";
+		terminEntry.Date = DateTime.Now;
+    }
 }
 
 public class Ukol : INotifyPropertyChanged
