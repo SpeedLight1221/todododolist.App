@@ -80,7 +80,7 @@ public partial class MainPage : ContentPage
 
     private void Hotovo_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-		Filter(Prubeh.Hotovo,e.Value);
+		Filter(Prubeh.Hotovo, e.Value);
     }
 
 	
