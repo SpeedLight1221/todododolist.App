@@ -49,11 +49,11 @@
 
             <Grid Background="blue" Grid.Row="0"  Grid.Column="1" RowDefinitions="2*,*,*,*,*" ColumnDefinitions="30,*,30,*">
                 <Label  Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Průběh:</Label>
-                <CheckBox CheckedChanged="CB_CheckedChanged"   x:Name="CB_zadano" Grid.Column="0" Grid.Row="1"></CheckBox>
+                <CheckBox CheckedChanged="zadáno_CheckedChanged" x:Name="zadáno" Grid.Column="0" Grid.Row="1"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="1" Text="Zadáno"></Label>
-                <CheckBox CheckedChanged="CB_CheckedChanged"    x:Name="CB_rozpracovano" Grid.Column="0" Grid.Row="2"></CheckBox>
+                <CheckBox CheckedChanged="rozpracováno_CheckedChanged"    x:Name="rozpracováno" Grid.Column="0" Grid.Row="2"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="2" Text="Rozpracováno"></Label>
-                <CheckBox CheckedChanged="CB_CheckedChanged"    x:Name="CB_Hotovo" Grid.Column="0" Grid.Row="3"></CheckBox>
+                <CheckBox CheckedChanged="Hotovo_CheckedChanged" x:Name="Hotovo" Grid.Column="0" Grid.Row="3"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="3" Text="Hotovo"></Label>
 
 

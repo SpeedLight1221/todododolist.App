@@ -12,6 +12,8 @@ public partial class MainPage : ContentPage
 	{
 		new Ukol("Test",new DateTime(),Prubeh.Rozpracováno)
 	};
+
+	public ObservableCollection<Ukol> filtred { get; set; } = new ObservableCollection<Ukol>();
     public MainPage()
 	{   
 		InitializeComponent();
@@ -36,7 +38,7 @@ public partial class MainPage : ContentPage
     }
 
 	Ukol selected;
-    private async void seznam_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private  void seznam_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
 		selected = (Ukol)e.SelectedItem;
 		nazevEntry.Text = selected.Nazev;
@@ -47,12 +49,7 @@ public partial class MainPage : ContentPage
 
     }
 
-	private void CB_CheckedChanged(object sender, CheckedChangedEventArgs e)
-	{
-        
-
-    }
-
+	
     private void UpdateButton_Clicked(object sender, EventArgs e)
     {
 		if(selected == null) { return; }
@@ -70,6 +67,35 @@ public partial class MainPage : ContentPage
 		nazevEntry.Text = "";
 		terminEntry.Date = DateTime.Now;
     }
+
+    private void zadáno_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+		Filter(Prubeh.Zadáno, e.Value);
+    }
+
+    private void rozpracováno_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+		Filter(Prubeh.Rozpracováno, e.Value);
+    }
+
+    private void Hotovo_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+		Filter(Prubeh.Hotovo,e.Value);
+    }
+
+	
+	private void Filter(Prubeh p,bool c)
+	{
+		if(c == false) {
+			seznam.ItemsSource = ukoly;
+			return;
+		}
+
+		filtred = new ObservableCollection<Ukol>( ukoly.Where(x => x.Status == p).ToList());
+		seznam.ItemsSource = filtred;
+	}
+
+    
 }
 
 public class Ukol : INotifyPropertyChanged
