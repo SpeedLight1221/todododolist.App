@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="todododolist.MainPage">
+             x:Class="todododolist.MainPage"
+             Loaded="ContentPage_Loaded"
+             Disappearing="ContentPage_Unloaded"
+             >
 
 
 
     <ScrollView>
-        <Grid RowDefinitions="*,3*">
+        <Grid RowDefinitions="*,3*" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -14,7 +17,7 @@
 
 
 
-            <Grid Grid.Row="1"  Background="purple" Padding="10" Grid.Column="0" RowDefinitions="*,*,*,*" >
+            <Grid Grid.Row="1"  Background="purple" Padding="10" Grid.Column="0" x:Name="tst" RowDefinitions="*,*,*,*" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -43,8 +46,7 @@
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Přidat" Clicked="AddTask_Clicked"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Změnit" Clicked="UpdateButton_Clicked"></Button>
                     <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Odebrat" Clicked="RemoveButton_Clicked"></Button>
-                    <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Read" Clicked="Read_Clicked"></Button>
-                    <Button Margin="10" WidthRequest="100" HeightRequest="50" Text="Write" Clicked="Write_Clicked"></Button>
+                   
 
 
                 </HorizontalStackLayout>
@@ -53,11 +55,11 @@
 
             <Grid Background="blue" Grid.Row="0"  Grid.Column="1" RowDefinitions="2*,*,*,*,*" ColumnDefinitions="30,*,30,*">
                 <Label  Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" Margin="10" FontAttributes="Bold">Průběh:</Label>
-                <CheckBox  CheckedChanged="zadáno_CheckedChanged" x:Name="zadáno" Grid.Column="0" Grid.Row="1"></CheckBox>
+                <CheckBox  CheckedChanged="setFilterSource" x:Name="zadáno" Grid.Column="0" Grid.Row="1"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="1" Text="Zadáno"></Label>
-                <CheckBox CheckedChanged="rozpracováno_CheckedChanged"    x:Name="rozpracováno" Grid.Column="0" Grid.Row="2"></CheckBox>
+                <CheckBox CheckedChanged="setFilterSource"    x:Name="rozpracováno" Grid.Column="0" Grid.Row="2"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="2" Text="Rozpracováno"></Label>
-                <CheckBox CheckedChanged="Hotovo_CheckedChanged" x:Name="Hotovo" Grid.Column="0" Grid.Row="3"></CheckBox>
+                <CheckBox CheckedChanged="setFilterSource" x:Name="Hotovo" Grid.Column="0" Grid.Row="3"></CheckBox>
                 <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Grid.Row="3" Text="Hotovo"></Label>
 
 

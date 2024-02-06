@@ -1,6 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 
 namespace todododolist;
@@ -8,6 +11,8 @@ namespace todododolist;
 public partial class MainPage : ContentPage
 {
     int count = 0;
+
+    public static MainPage mp;
     public ObservableCollection<Ukol> ukoly { get; set; } = new ObservableCollection<Ukol>
     {
         new Ukol("Test",new DateTime(),Prubeh.Rozpracováno)
@@ -18,6 +23,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         BindingContext = this;
+        mp = this;
 
 
 
@@ -35,13 +41,15 @@ public partial class MainPage : ContentPage
         ukoly.Add(u);
 
         nazevEntry.Text = "";
-
+        setFilterSource(null, null);
     }
 
     Ukol selected;
     private void seznam_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         selected = (Ukol)e.SelectedItem;
+        if(selected == null) { return; }
+
         nazevEntry.Text = selected.Nazev;
         prubehEntry.SelectedItem = selected.Status.ToString();
         terminEntry.Date = selected.Termin;
@@ -58,6 +66,7 @@ public partial class MainPage : ContentPage
         selected.Nazev = nazevEntry.Text;
         selected.Status = (Prubeh)Enum.Parse(typeof(Prubeh), prubehEntry.SelectedItem.ToString());
         selected.Termin = terminEntry.Date;
+        setFilterSource(null, null);
     }
 
     private void RemoveButton_Clicked(object sender, EventArgs e)
@@ -67,106 +76,107 @@ public partial class MainPage : ContentPage
         selected = null;
         nazevEntry.Text = "";
         terminEntry.Date = DateTime.Now;
+        setFilterSource(null,null);
 
     }
 
-    private void zadáno_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        Filter(Prubeh.Zadáno, e.Value);
-    }
+    
 
-    private void rozpracováno_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        Filter(Prubeh.Rozpracováno, e.Value);
-    }
-
-    private void Hotovo_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        Filter(Prubeh.Hotovo, e.Value);
-    }
-
-    Predicate<Ukol> filterList = ukolFilter;
-
+   
     static DateTime? DT_from;
     static DateTime? DT_till;
-    static Prubeh? filtr;
 
 
 
 
-    private void Filter(Prubeh p, bool c)
-    {
-        if (c == false)
-        {
-            filtr = null;
-            setFilterSource();
-            return;
-        }
-
-
-        if (p != Prubeh.Hotovo) { Hotovo.IsChecked = false; }
-        if (p != Prubeh.Zadáno) { zadáno.IsChecked = false; }
-        if (p != Prubeh.Rozpracováno) { rozpracováno.IsChecked = false; }
-
-        setFilterSource();
-    }
-
-    private void setFilterSource()
+    private void setFilterSource(object? sender, CheckedChangedEventArgs? e)
     {
         filtred = new ObservableCollection<Ukol>(ukoly.Where(ukolFilter));
         seznam.ItemsSource = filtred;
     }
 
 
-    public static bool ukolFilter(Ukol u)
+    public bool ukolFilter(Ukol u)
     {
-        if (DT_from != null && u.Termin < DT_from)
+        if(!mp.zadáno.IsChecked && !mp.Hotovo.IsChecked && !mp.rozpracováno.IsChecked)
         {
+            return true;
+        }
+
+        if (u.Status == Prubeh.Zadáno && mp.zadáno.IsChecked )
+        {
+            return true;
+        }
+        else if(u.Status == Prubeh.Zadáno && !mp.zadáno.IsChecked)
+        { return false; }
+
+        if (u.Status == Prubeh.Hotovo && mp.Hotovo.IsChecked)
+        {
+            return true;
+        }
+        else if (u.Status == Prubeh.Hotovo && !mp.Hotovo.IsChecked)
+        { return false; }
+
+        if (u.Status == Prubeh.Rozpracováno && mp.rozpracováno.IsChecked)
+        {
+            return true;
+        }
+        else if (u.Status == Prubeh.Rozpracováno && !mp.rozpracováno.IsChecked)
+        { 
             return false;
         }
 
-        if (DT_till != null && u.Termin > DT_till)
-        {
-            return false;
-        }
+        return false;
 
-        if (u.Status != filtr)
-        {
-            return false;
-        }
-
-        return true;
 
     }
 
     private void dp_from_DateSelected(object sender, DateChangedEventArgs e)
     {
         DT_from = dp_from.Date;
-        setFilterSource();
+        setFilterSource(null, null);
     }
 
     private void dp_till_DateSelected(object sender, DateChangedEventArgs e)
     {
         DT_till = dp_till.Date;
-        setFilterSource();
+        setFilterSource(null, null);
     }
 
-    private void Read_Clicked(object sender, EventArgs e)
+   
+
+    private void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        Load();
+    }
+
+    private void ContentPage_Unloaded(object sender, EventArgs e)
+    {
+        Save();
+    }
+
+    private void Load()
     {
         ukoly.Clear();
 
-        using (StreamReader sr = new StreamReader(@"C:\TEMP\Data.txt"))
+        try
         {
-            while (!sr.EndOfStream)
+            using (StreamReader sr = new StreamReader(@"C:\TEMP\Data.txt"))
             {
-                string s = sr.ReadLine();
-                ukoly.Add(new Ukol(s));
+                while (!sr.EndOfStream)
+                {
+                    string s = sr.ReadLine();
+                    ukoly.Add(new Ukol(s));
+
+                }
 
             }
-
+        }
+        catch {
         }
     }
-    private void Write_Clicked(object sender, EventArgs e)
+
+    private void Save()
     {
         using (StreamWriter sw = new StreamWriter(@"C:\TEMP\Data.txt"))
         {
